@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id()->comment("Id do status");
-            $table->string("Nome do status");
+            $table->string("name")->comment("Nome do status");
             $table->timestamps();
         });
     }

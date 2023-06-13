@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('team_user', function (Blueprint $table) {
             $table->id()->comment("Id do registro do relacionamento de time e usuário");
-            $table->foreignId('user_id')->comment("Id do usuário");
-            $table->foreignId('team_id')->comment("Id do time");
+            $table->foreignId('user_id')->comment("Id do usuário")->constrained();
+            $table->foreignId('team_id')->comment("Id do time")->constrained();
         });
     }
 

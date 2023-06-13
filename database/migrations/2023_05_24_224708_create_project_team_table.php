@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('project_team', function (Blueprint $table) {
             $table->id()->comment("Id do registro de relacionamento de projeto e time");
-            $table->foreignId('project_id')->comment("Id do projeto");
-            $table->foreignId('team_id')->comment("Id do time");
+            $table->foreignId('project_id')->comment("Id do projeto")->constrained();
+            $table->foreignId('team_id')->comment("Id do time")->constrained();
         });
     }
 

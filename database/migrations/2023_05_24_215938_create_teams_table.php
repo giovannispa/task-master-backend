@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id()->comment("Id do time");
             $table->string("name")->comment("Nome do time");
+            $table->foreignId('leader_id')->comment("Id do usuário lider de time")->constrained("users");
+            $table->integer('active_projects')->comment("Número de projetos ativos");
+            $table->integer('worked_projects')->comment("Número de projetos trabalhados");
+            $table->integer('tasks_performed')->comment("Número de tasks finalizadas");
             $table->timestamps();
         });
     }

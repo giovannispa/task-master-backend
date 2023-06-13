@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id()->comment("Id da tarefa");
-            $table->foreignId('project_id')->comment("Id do projeto");
-            $table->foreignId('status_id')->comment("Status da tarefa");
-            $table->foreignId('priority_id')->comment("Prioridade da tarefa");
+            $table->foreignId('project_id')->comment("Id do projeto")->constrained();
+            $table->foreignId('status_id')->comment("Status da tarefa")->constrained();
+            $table->foreignId('priority_id')->comment("Prioridade da tarefa")->constrained();
             $table->foreignId('created_by')->comment("Id do usuário que criou a tarefa")->constrained('users');
             $table->foreignId('assigned_to')->comment("Id do usuário a quem a tarefa é atribuída")->constrained('users');
             $table->string('name')->comment("Nome da tarefa");
