@@ -83,4 +83,9 @@ class BaseRepository implements BaseRepositoryInterface
 
         return false;
     }
+
+    public function findFirst(string $column, mixed $value)
+    {
+        return $this->model->where($column, $value)->first();
+    }
 }
