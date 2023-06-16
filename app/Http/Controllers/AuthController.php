@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
+use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -46,6 +47,6 @@ class AuthController extends Controller
     {
        $user = auth()->user();
 
-
+        return new UserResource($user);
     }
 }
