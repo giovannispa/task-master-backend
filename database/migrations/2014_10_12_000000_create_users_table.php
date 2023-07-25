@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable()->index()->comment("Data em que o usuário foi ativado");
             $table->string('password')->comment("Senha do usuário");
             $table->string('path_image')->comment("Caminho da foto do usuário")->nullable();
-            $table->integer("worked_projects")->comment("Número de projetos trabalhados");
-            $table->integer("tasks_performed")->comment("Número de tasks finalizadas");
-            $table->boolean("active")->comment("Marca se o usuário está ativado ou não");
+            $table->integer("worked_projects")->default(0)->comment("Número de projetos trabalhados");
+            $table->integer("tasks_performed")->default(0)->comment("Número de tasks finalizadas");
+            $table->boolean("active")->default(1)->comment("Marca se o usuário está ativado ou não");
             $table->rememberToken();
             $table->timestamps();
         });
