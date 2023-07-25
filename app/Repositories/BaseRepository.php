@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository implements BaseRepositoryInterface
 {
-    protected $model;
+    /**
+     * @var Model
+     */
+    protected Model $model;
 
+    /**
+     * Construtor.
+     *
+     * @param Model $model
+     */
     public function __construct(Model $model)
     {
         $this->model = $model;
@@ -19,7 +27,7 @@ class BaseRepository implements BaseRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function all()
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->model->all();
     }
@@ -30,7 +38,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param int $id
      * @return mixed
      */
-    public function find(int $id)
+    public function find(int $id): mixed
     {
         return $this->model->find($id);
     }
@@ -41,7 +49,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param array $data
      * @return mixed
      */
-    public function create(array $data)
+    public function create(array $data): mixed
     {
         return $this->model->create($data);
     }
@@ -53,7 +61,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param array $data
      * @return mixed|null
      */
-    public function update(int $id, array $data)
+    public function update(int $id, array $data): mixed
     {
         $model = $this->find($id);
 
@@ -72,7 +80,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param $id
      * @return bool
      */
-    public function delete(int $id)
+    public function delete(int $id): bool
     {
         $model = $this->find($id);
 
@@ -84,7 +92,14 @@ class BaseRepository implements BaseRepositoryInterface
         return false;
     }
 
-    public function findFirst(string $column, mixed $value)
+    /**
+     * Função que retorna o primeiro registro com base na coluna e valor passado por parametro.
+     *
+     * @param string $column
+     * @param mixed $value
+     * @return mixed
+     */
+    public function findFirst(string $column, mixed $value): mixed
     {
         return $this->model->where($column, $value)->first();
     }
