@@ -8,16 +8,36 @@ use App\Services\UserService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Controller AuthController
+ *
+ * Controlador responsável métodos de autenticação e recuperação de senha da plataforma.
+ */
 class AuthController extends Controller
 {
+    /**
+     * @var UserService
+     */
     private UserService $userService;
 
+    /**
+     * Construtor.
+     *
+     * @param UserService $userService
+     */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    public function login(AuthRequest $request)
+    /**
+     * Action de login do usuário via sanctum.
+     *
+     * @param AuthRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws ValidationException
+     */
+    public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
         $user = $this->userService->findFirst('email', $request->email);
 
@@ -34,7 +54,12 @@ class AuthController extends Controller
         ]);
     }
 
-    public function logout()
+    /**
+     * Action que desloga o usuário da plataforma.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout(): \Illuminate\Http\JsonResponse
     {
         auth()->user()->tokens()->delete();
 
@@ -43,7 +68,12 @@ class AuthController extends Controller
         ]);
     }
 
-    public function me()
+    /**
+     * Action que retorna todos os dados do usuário logado.
+     *
+     * @return UserResource
+     */
+    public function me(): UserResource
     {
        $user = auth()->user();
 
