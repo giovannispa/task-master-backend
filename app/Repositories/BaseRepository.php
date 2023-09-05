@@ -25,9 +25,9 @@ class BaseRepository implements BaseRepositoryInterface
     /**
      * Função que resgata todos os dados do banco
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return object
      */
-    public function all(): \Illuminate\Database\Eloquent\Collection
+    public function all(): object
     {
         return $this->model->all();
     }
@@ -36,20 +36,44 @@ class BaseRepository implements BaseRepositoryInterface
      * Função que resgata dado especifico por ID.
      *
      * @param int $id
-     * @return mixed
+     * @return object
      */
-    public function find(int $id): mixed
+    public function find(int $id): object
     {
         return $this->model->find($id);
+    }
+
+    /**
+     * Função que retorna o primeiro registro com base na coluna e valor passado por parametro.
+     *
+     * @param string $column
+     * @param mixed $value
+     * @return mixed
+     */
+    public function findWhereFirst(string $column, mixed $value): object
+    {
+        return $this->model->where($column, $value)->first();
+    }
+
+    /**
+     * Função que retorna a coleção com base na coluna e valor passado por parametro.
+     *
+     * @param string $column
+     * @param mixed $value
+     * @return object
+     */
+    public function findWhereAll(string $column, mixed $value): object
+    {
+        return $this->model->where($column, $value)->get();
     }
 
     /**
      * Função que cria os dados com base no array informado
      *
      * @param array $data
-     * @return mixed
+     * @return object
      */
-    public function create(array $data): mixed
+    public function create(array $data): object
     {
         return $this->model->create($data);
     }
@@ -59,19 +83,14 @@ class BaseRepository implements BaseRepositoryInterface
      *
      * @param int $id
      * @param array $data
-     * @return mixed|null
+     * @return object
      */
-    public function update(int $id, array $data): mixed
+    public function update(int $id, array $data): object
     {
         $model = $this->find($id);
-
-        if ($model) {
-            $model->fill($data);
-            $model->save();
-            return $model;
-        }
-
-        return null;
+        $model->fill($data);
+        $model->save();
+        return $model;
     }
 
     /**
@@ -90,17 +109,5 @@ class BaseRepository implements BaseRepositoryInterface
         }
 
         return false;
-    }
-
-    /**
-     * Função que retorna o primeiro registro com base na coluna e valor passado por parametro.
-     *
-     * @param string $column
-     * @param mixed $value
-     * @return mixed
-     */
-    public function findFirst(string $column, mixed $value): mixed
-    {
-        return $this->model->where($column, $value)->first();
     }
 }

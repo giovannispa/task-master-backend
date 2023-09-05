@@ -4,11 +4,13 @@ namespace App\Interfaces;
 
 interface BaseRepositoryInterface
 {
-    public function all();
-    public function find(int $id);
+    public function all(): object;
+    public function find(int $id): object;
 
-    public function findFirst(string $column, mixed $value);
-    public function create(array $data);
-    public function update(int $id, array $data);
-    public function delete(int $id);
+    public function findWhereFirst(string $column, mixed $value): object;
+
+    public function findWhereAll(string $column, mixed $value): object;
+    public function create(array $data): object;
+    public function update(int $id, array $data): object;
+    public function delete(int $id): bool;
 }
