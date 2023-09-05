@@ -33,7 +33,7 @@ class UserController extends Controller
     /**
      * Retorna todos os usuários.
      */
-    public function index()
+    public function index(): UserResource
     {
         $users = $this->userService->all();
 
@@ -43,7 +43,7 @@ class UserController extends Controller
     /**
      * Cadastra um novo usuário na plataforma.
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): UserResource
     {
         $user = $request->validated();
         $user['password'] = bcrypt($user['password']);
@@ -55,7 +55,7 @@ class UserController extends Controller
     /**
      * Exibe um usuário pelo ID.
      */
-    public function show(string $id)
+    public function show(string $id): UserResource
     {
         $user = $this->userService->find($id);
 
@@ -65,7 +65,7 @@ class UserController extends Controller
     /**
      * Atualiza os dados de um usuário pelo ID.
      */
-    public function update(UpdateUserRequest $request, string $id)
+    public function update(UpdateUserRequest $request, string $id): UserResource
     {
         $user = $request->validated();
         $this->userService->update($id, $user);
