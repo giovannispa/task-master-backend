@@ -33,19 +33,19 @@ class UserService
      *
      * @param string $column
      * @param mixed $value
-     * @return mixed
+     * @return object
      */
-    public function findFirst(string $column, mixed $value)
+    public function findWhereFirst(string $column, mixed $value): object
     {
-        return $this->repository->findFirst($column, $value);
+        return $this->repository->findWhereFirst($column, $value);
     }
 
     /**
      * Retorna todos os usuários.
      *
-     * @return mixed
+     * @return object
      */
-    public function all()
+    public function all(): object
     {
         return $this->repository->all();
     }
@@ -54,9 +54,9 @@ class UserService
      * Cria um novo usuário.
      *
      * @param array $data
-     * @return mixed
+     * @return object
      */
-    public function create(array $data)
+    public function create(array $data): object
     {
         return $this->repository->create($data);
     }
@@ -65,9 +65,9 @@ class UserService
      * Encontra um usuário pelo ID.
      *
      * @param int $id
-     * @return mixed
+     * @return object
      */
-    public function find(int $id)
+    public function find(int $id): object
     {
         return $this->repository->find($id);
     }
@@ -78,7 +78,7 @@ class UserService
      * @param string $id
      * @return bool
      */
-    public function delete(string $id)
+    public function delete(string $id): bool
     {
         return $this->repository->delete($id);
     }
@@ -88,9 +88,9 @@ class UserService
      *
      * @param int $id
      * @param array $data
-     * @return mixed|null
+     * @return object
      */
-    public function update(int $id, array $data)
+    public function update(int $id, array $data): object
     {
         return $this->repository->update($id, $data);
     }
