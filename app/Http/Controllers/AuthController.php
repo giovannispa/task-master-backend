@@ -39,7 +39,7 @@ class AuthController extends Controller
      */
     public function login(AuthRequest $request): \Illuminate\Http\JsonResponse
     {
-        $user = $this->userService->findFirst('email', $request->email);
+        $user = $this->userService->findWhereFirst('email', $request->email);
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
