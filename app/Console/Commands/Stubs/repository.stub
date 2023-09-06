@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Interfaces\{{ class }}Interface;
+use App\Models\{{ model }};
+
+class {{ class }} implements {{ class }}Interface
+{
+    /**
+     * Construtor.
+     *
+     * @param {{ model }} $model
+     */
+    public function __construct({{ model }} $model)
+    {
+        parent::__construct($model);
+    }
+}
