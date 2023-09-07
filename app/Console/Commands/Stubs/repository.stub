@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\{{ class }}Interface;
 use App\Models\{{ model }};
 
-class {{ class }} implements {{ class }}Interface
+class {{ class }} extends BaseRepository implements {{ class }}Interface
 {
     /**
      * Construtor.
