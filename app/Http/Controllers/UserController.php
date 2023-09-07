@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -32,18 +32,23 @@ class UserController extends Controller
 
     /**
      * Retorna todos os usuários.
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index(): UserResource
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $users = $this->userService->all();
 
-        return new UserResource($users);
+        return UserResource::collection($users);
     }
 
     /**
      * Cadastra um novo usuário na plataforma.
+     *
+     * @param UserStoreRequest $request
+     * @return UserResource
      */
-    public function store(StoreUserRequest $request): UserResource
+    public function store(UserStoreRequest $request): UserResource
     {
         $user = $request->validated();
         $user['password'] = bcrypt($user['password']);
@@ -54,6 +59,9 @@ class UserController extends Controller
 
     /**
      * Exibe um usuário pelo ID.
+     *
+     * @param string $id
+     * @return UserResource
      */
     public function show(string $id): UserResource
     {
@@ -64,8 +72,12 @@ class UserController extends Controller
 
     /**
      * Atualiza os dados de um usuário pelo ID.
+     *
+     * @param UserUpdateRequest $request
+     * @param string $id
+     * @return UserResource
      */
-    public function update(UpdateUserRequest $request, string $id): UserResource
+    public function update(UserUpdateRequest $request, string $id): UserResource
     {
         $user = $request->validated();
         $this->userService->update($id, $user);
@@ -75,6 +87,9 @@ class UserController extends Controller
 
     /**
      * Remove os dados de um usuário pelo ID.
+     *
+     * @param string $id
+     * @return \Illuminate\Http\JsonResponse|void
      */
     public function destroy(string $id)
     {
