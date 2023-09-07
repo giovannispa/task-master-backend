@@ -43,9 +43,9 @@ class UserService
     /**
      * Retorna todos os usuários.
      *
-     * @return object
+     * @return array
      */
-    public function all(): object
+    public function all(): array
     {
         return $this->repository->all();
     }

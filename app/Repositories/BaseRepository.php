@@ -25,11 +25,11 @@ class BaseRepository implements BaseRepositoryInterface
     /**
      * Função que resgata todos os dados do banco
      *
-     * @return object
+     * @return array
      */
-    public function all(): object
+    public function all(): array
     {
-        return $this->model->all();
+        return $this->model->all()->toArray();
     }
 
     /**
