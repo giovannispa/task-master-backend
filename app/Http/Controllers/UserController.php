@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $user = $request->validated();
         $user['password'] = bcrypt($user['password']);
-        $this->userService->create($user);
+        $user = $this->userService->create($user);
 
         return new UserResource($user);
     }
@@ -93,10 +93,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        if($this->userService->delete($id)) {
-            return response()->json([
-                'success' => true
-            ]);
-        }
+        $this->userService->delete($id);
+
+        return response()->noContent();
     }
 }
