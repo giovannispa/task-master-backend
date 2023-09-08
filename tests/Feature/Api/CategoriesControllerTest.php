@@ -178,7 +178,12 @@ class CategoriesControllerTest extends TestCase
         });
     }
 
-    public function test_delete()
+    /**
+     * Teste de exclusão de categoria.
+     *
+     * @return void
+     */
+    public function test_delete(): void
     {
         $token = $this->createToken();
         $category = Category::factory()->create();
