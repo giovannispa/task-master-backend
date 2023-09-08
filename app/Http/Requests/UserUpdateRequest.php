@@ -23,7 +23,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'category_id' => 'required|exists:categories,id',
-            'name' => 'required|min:10|max:60',
+            'name' => 'required|min:5|max:60',
             'email' => 'required|email:rfc',
         ];
     }
