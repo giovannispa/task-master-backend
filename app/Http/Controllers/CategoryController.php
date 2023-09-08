@@ -7,6 +7,11 @@ use App\Http\Requests\CategoryUpdateRequest;
 use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
 
+/**
+ * Controller CategoryController
+ *
+ * Controlador responsável por todas as interações envolvendo categorias.
+ */
 class CategoryController extends Controller
 {
     /**
