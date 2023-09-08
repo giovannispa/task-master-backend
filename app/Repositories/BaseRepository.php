@@ -110,4 +110,42 @@ class BaseRepository implements BaseRepositoryInterface
 
         return false;
     }
+
+    /**
+     * Faz relacionamento many to many de forma dinamica.
+     *
+     * @param string $relation
+     * @param int $primary_id
+     * @param int $foreign_id
+     * @return object|null
+     */
+    public function attach(string $relation, int $primary_id, int $foreign_id): ?object
+    {
+        $model = $this->find($primary_id);
+        if ($model) {
+            $model->{$relation}()->attach($foreign_id);
+            return $model;
+        }
+
+        return null;
+    }
+
+    /**
+     * Remove do relacionamento many to many de forma dinamica.
+     *
+     * @param string $relation
+     * @param int $primary_id
+     * @param int $foreign_id
+     * @return object|null
+     */
+    public function detach(string $relation, int $primary_id, int $foreign_id): ?object
+    {
+        $model = $this->find($primary_id);
+        if ($model) {
+            $model->{$relation}()->detach($foreign_id);
+            return $model;
+        }
+
+        return null;
+    }
 }
