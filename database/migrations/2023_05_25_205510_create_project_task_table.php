@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('project_task', function (Blueprint $table) {
-            $table->id()->comment("Id do relacionamento entre projeto e tarefas");
             $table->foreignId('project_id')->comment("Id do projeto")->constrained();
             $table->foreignId('task_id')->comment("Id da tarefa")->constrained();
         });
