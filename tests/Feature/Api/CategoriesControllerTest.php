@@ -10,6 +10,11 @@ use Tests\TestCase;
 
 class CategoriesControllerTest extends TestCase
 {
+    use UtilsTrait;
+
+    /**
+     * @var string
+     */
     protected string $endpoint = '/categories';
 
     /**
@@ -19,11 +24,16 @@ class CategoriesControllerTest extends TestCase
      */
     public function test_get_all(): void
     {
-        $categoires = Category::factory(3)->create();
+        $categoires = Category::factory(2)->create();
+        $token = $this->createToken();
 
-        $response = $this->getJson($this->endpoint);
+        $response = $this->getJson($this->endpoint,[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
         $response->assertStatus(200);
         $response->assertJsonCount(3, 'data');
+
         $response->assertJson(function (AssertableJson $json) use($categoires) {
             $json->whereAllType([
                 'data.0.id' => 'integer',
@@ -59,8 +69,12 @@ class CategoriesControllerTest extends TestCase
     public function test_find_single(): void
     {
         $category = Category::factory(1)->create();
+        $token = $this->createToken();
 
-        $response = $this->getJson("{$this->endpoint}/{$category[0]->id}");
+        $response = $this->getJson("{$this->endpoint}/{$category[0]->id}",[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
         $response->assertStatus(200);
 
         $response->assertJsonStructure([
@@ -114,7 +128,12 @@ class CategoriesControllerTest extends TestCase
         array $jsonWhere
     ): void
     {
-        $response = $this->postJson($this->endpoint, $payload);
+        $token = $this->createToken();
+
+        $response = $this->postJson($this->endpoint, $payload,[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
         $response->assertStatus($code);
         $response->assertJsonStructure($structure);
 
@@ -142,8 +161,13 @@ class CategoriesControllerTest extends TestCase
         array $jsonWhere
     ): void
     {
+        $token = $this->createToken();
         $category = Category::factory()->create();
-        $response = $this->putJson("{$this->endpoint}/{$category->id}", $payload);
+
+        $response = $this->putJson("{$this->endpoint}/{$category->id}", $payload,[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
         $response->assertStatus($code);
         $response->assertJsonStructure($structure);
 
@@ -156,8 +180,13 @@ class CategoriesControllerTest extends TestCase
 
     public function test_delete()
     {
+        $token = $this->createToken();
         $category = Category::factory()->create();
-        $response = $this->deleteJson("{$this->endpoint}/{$category->id}");
+
+        $response = $this->deleteJson("{$this->endpoint}/{$category->id}",[],[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
         $response->assertStatus(204);
         $response->assertNoContent();
     }
