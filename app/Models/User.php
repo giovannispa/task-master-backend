@@ -56,4 +56,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Função que retorna as equipes que o usuário faz parte.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function teams(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }
