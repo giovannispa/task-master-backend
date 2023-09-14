@@ -426,6 +426,28 @@ class TeamControllerTest extends TestCase
     }
 
     /**
+     * Teste de exclusão de equipe.
+     *
+     * @return void
+     */
+    public function test_delete(): void
+    {
+        $token = $this->createToken();
+        $category = Category::factory()->create();
+        $user = User::factory()->for($category)->create();
+        $team = Team::factory()->create([
+            'leader_id' => $user->id
+        ]);
+
+        $response = $this->deleteJson("{$this->endpoint}/{$team->id}",[],[
+            'Authorization' => "Bearer {$token}"
+        ]);
+
+        $response->assertStatus(204);
+        $response->assertNoContent();
+    }
+
+    /**
      * Data provider de criação de equipe.
      *
      * @return array[]
@@ -468,28 +490,6 @@ class TeamControllerTest extends TestCase
                 ]
             ]
         ];
-    }
-
-    /**
-     * Teste de exclusão de equipe.
-     *
-     * @return void
-     */
-    public function test_delete(): void
-    {
-        $token = $this->createToken();
-        $category = Category::factory()->create();
-        $user = User::factory()->for($category)->create();
-        $team = Team::factory()->create([
-            'leader_id' => $user->id
-        ]);
-
-        $response = $this->deleteJson("{$this->endpoint}/{$team->id}",[],[
-            'Authorization' => "Bearer {$token}"
-        ]);
-
-        $response->assertStatus(204);
-        $response->assertNoContent();
     }
 
     /**
