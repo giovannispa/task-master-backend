@@ -4,7 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\{
     UserController,
     CategoryController,
-    TeamController
+    TeamController,
+    ProjectController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/teams/{id}/coworkers', [TeamController::class, 'showCoworker']);
     Route::post('/teams/{id}/coworkers', [TeamController::class, 'storeCoworker']);
     Route::delete('/teams/{id}/coworkers', [TeamController::class, 'destroyCoworker']);
+
+    Route::apiResource('/projects', ProjectController::class);
+    Route::get('/projects/{id}/teams', [ProjectController::class, 'showTeam']);
+    Route::post('/projects/{id}/teams', [ProjectController::class, 'storeTeam']);
+    Route::delete('/projects/{id}/teams', [ProjectController::class, 'destroyTeam']);
 });
 
