@@ -15,7 +15,6 @@ class ProjectSeeder extends Seeder
     {
         DB::table('projects')->insert([
             'status_id' => 1,
-            'team_id' => 1,
             'name' => "Teste projeto",
             'description' => "Projeto de teste",
             'start_date' => date("Y-m-d"),
