@@ -31,4 +31,14 @@ class Team extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * Função que retorna os projetos do time.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function projects(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }
