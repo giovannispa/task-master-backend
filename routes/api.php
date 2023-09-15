@@ -5,7 +5,8 @@ use App\Http\Controllers\{
     UserController,
     CategoryController,
     TeamController,
-    ProjectController
+    ProjectController,
+    TaskController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -28,5 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/projects/{id}/teams', [ProjectController::class, 'showTeam']);
     Route::post('/projects/{id}/teams', [ProjectController::class, 'storeTeam']);
     Route::delete('/projects/{id}/teams', [ProjectController::class, 'destroyTeam']);
+
+    Route::apiResource('/tasks', TaskController::class);
 });
 
