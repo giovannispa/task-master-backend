@@ -4,6 +4,13 @@ namespace App\Services;
 
 use App\Interfaces\ProjectRepositoryInterface;
 
+/**
+ * Classe ProjectService
+ *
+ * Esta classe é um serviço responsável por manipular os dados de projetos.
+ * Ela depende de uma implementação do repositório de projeto
+ * para realizar as operações de CRUD.
+ */
 class ProjectService
 {
     /**
@@ -66,7 +73,7 @@ class ProjectService
     }
 
     /**
-     * Deleta uma equipe pelo ID.
+     * Deleta uma projeto pelo ID.
      *
      * @param string $id
      * @return bool
