@@ -5,7 +5,7 @@ namespace App\Interfaces;
 interface BaseRepositoryInterface
 {
     public function all(): array;
-    public function find(int $id): object;
+    public function find(int $id, bool $loadRelationships): object;
 
     public function findWhereFirst(string $column, mixed $value): object;
 

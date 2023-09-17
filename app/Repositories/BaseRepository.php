@@ -29,16 +29,17 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function all(): array
     {
-        return $this->model->all()->toArray();
+        return $this->model->get()->toArray();
     }
 
     /**
      * Função que resgata dado especifico por ID.
      *
      * @param int $id
+     * @param bool $loadRelationships
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id, bool $loadRelationships = false): object
     {
         return $this->model->find($id);
     }
