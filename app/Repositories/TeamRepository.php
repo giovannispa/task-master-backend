@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\TeamRepositoryInterface;
 use App\Models\Team;
+use Illuminate\Support\Facades\Cache;
 
 class TeamRepository extends BaseRepository implements TeamRepositoryInterface
 {
@@ -24,7 +25,9 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
      */
     public function all(): array
     {
-        return $this->model->with(['users','projects'])->get()->toArray();
+        return Cache::rememberForever(class_basename($this->model::class), function() {
+            return $this->model->with(['users','projects'])->get()->toArray();
+        });
     }
 
     /**

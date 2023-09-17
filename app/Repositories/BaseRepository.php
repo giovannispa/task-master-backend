@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -29,7 +30,9 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function all(): array
     {
-        return $this->model->get()->toArray();
+        return Cache::rememberForever(class_basename($this->model::class), function() {
+            return $this->model->get()->toArray();
+        });
     }
 
     /**
@@ -76,6 +79,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function create(array $data): object
     {
+        $this->clearCache();
         return $this->model->create($data);
     }
 
@@ -91,6 +95,7 @@ class BaseRepository implements BaseRepositoryInterface
         $model = $this->find($id);
         $model->fill($data);
         $model->save();
+        $this->clearCache();
         return $model;
     }
 
@@ -105,6 +110,7 @@ class BaseRepository implements BaseRepositoryInterface
         $model = $this->find($id);
 
         if ($model) {
+            $this->clearCache();
             $model->delete();
             return true;
         }
@@ -124,6 +130,7 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->find($primary_id);
         if ($model) {
+            $this->clearCache();
             $model->{$relation}()->attach($foreign_id);
             return $model;
         }
@@ -143,10 +150,21 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->find($primary_id);
         if ($model) {
+            $this->clearCache();
             $model->{$relation}()->detach($foreign_id);
             return $model;
         }
 
         return null;
+    }
+
+    /**
+     * Apaga o cache para que ele seja criado novamente.
+     *
+     * @return void
+     */
+    public function clearCache(): void
+    {
+        Cache::forget($this->model::class);
     }
 }

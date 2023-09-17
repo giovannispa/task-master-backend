@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -24,7 +25,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function all(): array
     {
-        return $this->model->with(['category','teams'])->get()->toArray();
+        return Cache::rememberForever($this->model::class, function() {
+            return $this->model->with(['category','teams'])->get()->toArray();
+        });
     }
 
     /**

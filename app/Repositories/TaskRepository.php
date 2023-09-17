@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
+use Illuminate\Support\Facades\Cache;
 
 class TaskRepository extends BaseRepository implements TaskRepositoryInterface
 {
@@ -24,7 +25,9 @@ class TaskRepository extends BaseRepository implements TaskRepositoryInterface
      */
     public function all(): array
     {
-        return $this->model->with(['priority', 'status','project'])->get()->toArray();
+        return Cache::rememberForever(class_basename($this->model::class), function() {
+            return $this->model->with(['priority', 'status','project'])->get()->toArray();
+        });
     }
 
     /**

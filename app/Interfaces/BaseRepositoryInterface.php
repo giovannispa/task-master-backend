@@ -20,4 +20,6 @@ interface BaseRepositoryInterface
     public function attach(string $relation, int $primary_id, int $foreign_id): ?object;
 
     public function detach(string $relation, int $primary_id, int $foreign_id): ?object;
+
+    public function clearCache(): void;
 }

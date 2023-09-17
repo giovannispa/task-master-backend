@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\ProjectRepositoryInterface;
 use App\Models\Project;
+use Illuminate\Support\Facades\Cache;
 
 class ProjectRepository extends BaseRepository implements ProjectRepositoryInterface
 {
@@ -24,7 +25,9 @@ class ProjectRepository extends BaseRepository implements ProjectRepositoryInter
      */
     public function all(): array
     {
-        return $this->model->with(['teams', 'status'])->get()->toArray();
+        return Cache::rememberForever(class_basename($this->model::class), function() {
+            return $this->model->with(['teams', 'status'])->get()->toArray();
+        });
     }
 
     /**
