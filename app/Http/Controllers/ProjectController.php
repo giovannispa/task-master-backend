@@ -67,7 +67,7 @@ class ProjectController extends Controller
      */
     public function show(string $id): ProjectResource
     {
-        $project = $this->projectService->find($id);
+        $project = $this->projectService->find($id, true);
 
         return new ProjectResource($project);
     }
