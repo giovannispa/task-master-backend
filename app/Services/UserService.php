@@ -62,14 +62,15 @@ class UserService
     }
 
     /**
-     * Encontra um usuário pelo ID.
+     * Encontra uma usuário pelo ID.
      *
      * @param int $id
+     * @param bool $loadRelationships
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id, bool $loadRelationships = false): object
     {
-        return $this->repository->find($id);
+        return $this->repository->find($id, $loadRelationships);
     }
 
     /**

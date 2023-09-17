@@ -65,7 +65,7 @@ class UserController extends Controller
      */
     public function show(string $id): UserResource
     {
-        $user = $this->userService->find($id);
+        $user = $this->userService->find($id, true);
 
         return new UserResource($user);
     }
