@@ -71,7 +71,7 @@ class TeamController extends Controller
      */
     public function show(string $id): TeamResource
     {
-        $team = $this->teamService->find($id);
+        $team = $this->teamService->find($id, true);
 
         return new TeamResource($team);
     }

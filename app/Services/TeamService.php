@@ -65,11 +65,12 @@ class TeamService
      * Encontra uma equipe pelo ID.
      *
      * @param int $id
+     * @param bool $loadRelationships
      * @return object
      */
-    public function find(int $id): object
+    public function find(int $id, bool $loadRelationships = false): object
     {
-        return $this->repository->find($id);
+        return $this->repository->find($id, $loadRelationships);
     }
 
     /**
