@@ -67,7 +67,7 @@ class TaskController extends Controller
      */
     public function show(string $id): TaskResource
     {
-        $task = $this->taskService->find($id);
+        $task = $this->taskService->find($id, true);
 
         return new TaskResource($task);
     }
